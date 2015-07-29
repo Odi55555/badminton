@@ -1,22 +1,12 @@
 <ion-view view-title="Spielanmeldung">
 <ion-content>
-<h1>Spielanmeldung</h1>
-<div>30.07.2015</div>
-<div>
-	Ich bin dabei
-	<label class="toggle">
-		<input type="checkbox">
-		<div class="track">
-			<div class="handle"></div>
-		</div>
-	</label>
-</div>
-<div class="list">
+<div class="list card">
+	<ion-toggle ng-model="appCtrl.playGame" toggle-class="toggle-calm">Ich spiele mit</ion-toggle>
 	<label class="item item-input item-select">
 		<div class="input-label">
 			Spielbeginn
 		</div>
-		<select>
+		<select ng-disabled="!appCtrl.playGame">
 			<option selected>Egal</option>
 			<option>Früh</option>
 			<option>Spät</option>
@@ -26,31 +16,27 @@
 		<div class="input-label">
 			Spieldauer
 		</div>
-		<select>
+		<select ng-disabled="!appCtrl.playGame">
 			<option selected>Egal</option>
 			<option>1,0h</option>
 			<option>1,5h</option>
 			<option>2,0h</option>
 		</select>
 	</label>
-</div>
-<div>
-	Ich fahre zurück zur Firma
-	<label class="toggle">
-		<input type="checkbox">
-		<div class="track">
-			<div class="handle"></div>
+	<ion-toggle ng-model="appCtrl.backToCompany" toggle-class="toggle-calm" ng-disabled="!appCtrl.playGame">Ich fahre zurück zur Firma</ion-toggle>
+	<div class="item item-range" ng-hide="true">
+		Anzahl freier Plätze
+		<span class="item-right">{{appCtrl.passengers}}</span>
+		<div class="item range range-positive">
+			<input type="range" name="passengers" min="0" max="8" value="0" ng-model="appCtrl.passengers">
 		</div>
-	</label>
-</div>
-<div>
-	Essen
-	<label class="toggle">
-		<input type="checkbox">
-		<div class="track">
-			<div class="handle"></div>
-		</div>
-	</label>
+	</div>
+	<ion-toggle ng-model="appCtrl.dinner" toggle-class="toggle-calm" ng-disabled="!appCtrl.playGame">Essen</ion-toggle>
 </div>
 </ion-content>
+<div class="bar bar-footer">
+	<button class="button button-clear button-positive icon-left ion-arrow-left-b">&nbsp;Zurück</button>
+	<div class="title text-positive">30.07.2015</div>
+	<button class="button button-clear button-positive icon-right ion-arrow-right-b">Vor&nbsp;</button>
+</div>
 </ion-view>
