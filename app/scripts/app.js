@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.login'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -27,7 +27,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     .state('app', {
     url: '',
     abstract: true,
-    templateUrl: 'templates/menu.html',
+    templateUrl: 'states/index/menu.html',
     controller: 'AppCtrl',
     controllerAs: 'appCtrl'
   })
@@ -36,7 +36,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     url: '/register-game',
     views: {
       'menuContent': {
-        templateUrl: 'templates/register-game.html'
+        templateUrl: 'states/register-game/register-game.html'
       }
     }
   })
@@ -45,7 +45,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     url: '/game-overview',
     views: {
       'menuContent': {
-        templateUrl: 'templates/game-overview.html'
+        templateUrl: 'states/game-overview/game-overview.html'
       }
     }
   })
@@ -54,7 +54,16 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     url: '/settings',
     views: {
       'menuContent': {
-        templateUrl: 'templates/settings.html'
+        templateUrl: 'states/settings/settings.html'
+      }
+    }
+  })
+
+  .state('app.administration', {
+    url: '/administration',
+    views: {
+      'menuContent': {
+        templateUrl: 'states/administration/administration.html'
       }
     }
   })
