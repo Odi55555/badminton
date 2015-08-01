@@ -7,6 +7,9 @@
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.login'])
 
 .run(function($ionicPlatform) {
+  
+  'use strict';
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -23,13 +26,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.login'])
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
+  
+  'use strict';
+
   $stateProvider
     .state('app', {
     url: '',
     abstract: true,
     templateUrl: 'states/index/menu.html',
-    controller: 'AppCtrl',
-    controllerAs: 'appCtrl'
+    controller: 'AppCtrl as appCtrl',
+    // Ionic bug #3058 prevents using the controllerAs key
+    // controllerAs: 'appCtrl'
   })
 
   .state('app.registerGame', {
@@ -66,7 +73,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.login'])
         templateUrl: 'states/administration/administration.html'
       }
     }
-  })
+  });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/register-game');
