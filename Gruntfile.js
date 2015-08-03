@@ -21,7 +21,8 @@ module.exports = function (grunt) {
     yeoman: {
       // configurable paths
       app: 'app',
-      scripts: 'scripts',
+      // TODO add all js directories here for livereload, etc
+      scripts: 'states',
       styles: 'styles',
       images: 'images',
       test: 'test',
@@ -68,7 +69,7 @@ module.exports = function (grunt) {
         tasks: ['newer:copy:app']
       },
       js: {
-        files: ['<%= yeoman.app %>/<%= yeoman.scripts %>/**/*.js'],
+        files: ['<%= yeoman.app %>/<%= yeoman.scripts %>/**/*.js', '<%= yeoman.app %>/common/**/*.js', '<%= yeoman.app %>/scripts/**/*.js'],
         tasks: ['newer:copy:app', 'newer:jshint:all']
       },
       compass: {
