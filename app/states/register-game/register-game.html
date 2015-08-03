@@ -1,12 +1,12 @@
 <ion-view view-title="Spielanmeldung">
 <ion-content>
 <div class="list card">
-	<ion-toggle ng-model="appCtrl.playGame" toggle-class="toggle-calm">Ich spiele mit</ion-toggle>
+	<ion-toggle ng-model="app.playGame" toggle-class="toggle-calm">Ich spiele mit</ion-toggle>
 	<label class="item item-input item-select">
 		<div class="input-label">
 			Spielbeginn
 		</div>
-		<select ng-disabled="!appCtrl.playGame">
+		<select ng-disabled="!app.playGame">
 			<option selected>Egal</option>
 			<option>Früh</option>
 			<option>Spät</option>
@@ -16,22 +16,22 @@
 		<div class="input-label">
 			Spieldauer
 		</div>
-		<select ng-disabled="!appCtrl.playGame">
+		<select ng-disabled="!app.playGame">
 			<option selected>Egal</option>
 			<option>1,0h</option>
 			<option>1,5h</option>
 			<option>2,0h</option>
 		</select>
 	</label>
-	<ion-toggle ng-model="appCtrl.backToCompany" toggle-class="toggle-calm" ng-disabled="!appCtrl.playGame">Ich fahre zurück zur Firma</ion-toggle>
+	<ion-toggle ng-model="app.backToCompany" toggle-class="toggle-calm" ng-disabled="!app.playGame">Ich fahre zurück zur Firma</ion-toggle>
 	<div class="item item-range" ng-hide="true">
 		Anzahl freier Plätze
-		<span class="item-right">{{appCtrl.passengers}}</span>
+		<span class="item-right">{{app.passengers}}</span>
 		<div class="item range range-positive">
-			<input type="range" name="passengers" min="0" max="8" value="0" ng-model="appCtrl.passengers">
+			<input type="range" name="passengers" min="0" max="8" value="0" ng-model="app.passengers">
 		</div>
 	</div>
-	<ion-toggle ng-model="appCtrl.dinner" toggle-class="toggle-calm" ng-disabled="!appCtrl.playGame">Essen</ion-toggle>
+	<ion-toggle ng-model="app.dinner" toggle-class="toggle-calm" ng-disabled="!app.playGame">Essen</ion-toggle>
 </div>
 </ion-content>
 <div class="bar bar-footer">

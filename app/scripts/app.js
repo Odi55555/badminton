@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.login'])
+angular.module('starter', ['ionic', 'starter.app', 'config'])
 
 .run(function($ionicPlatform) {
   
@@ -34,7 +34,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.login'])
     url: '',
     abstract: true,
     templateUrl: 'states/index/menu.html',
-    controller: 'AppCtrl as appCtrl',
+    controller: 'App as app',
     // Ionic bug #3058 prevents using the controllerAs key
     // controllerAs: 'appCtrl'
   })

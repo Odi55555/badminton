@@ -1,6 +1,10 @@
-angular.module('starter.controllers', [])
+angular.module('starter.app', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('App', App);
+
+App.$inject = ['$rootScope', '$ionicModal', '$timeout', 'userService', 'Config'];
+
+function App($scope, $ionicModal, $timeout, userService, Config) {
 
   'use strict';
 
@@ -13,17 +17,46 @@ angular.module('starter.controllers', [])
 
   var vm = this;
 
-  vm.test="here we go";
-  
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('states/login/login.html', {
     scope: $scope
   }).then(function(modal) {
     vm.modal = modal;
+    vm.handleAuthentication()
   });
+
+  // Form data for the login modal
+  $scope.loginData = {};
 
   // Open the login modal
   vm.login = function() {
     vm.modal.show();
   };
-});
+
+  // Triggered in the login modal to close it
+  // TODO try this with controllerAs syntax again
+  $scope.closeLogin = function() {
+    vm.modal.hide();
+  };
+
+  // Perform the login action when the user submits the login form
+  $scope.doLogin = function() {
+    console.log('Doing login', $scope.loginData);
+
+    userService.login($scope.loginData.username, $scope.loginData.password).then(function() {
+      // TODO promise gets resolved even on failed XHR request!
+      // TODO handle authentication error
+      $scope.closeLogin();
+
+    }, function(error) {
+      // TODO show error
+    });
+  };
+
+  // handle authentication
+  vm.handleAuthentication = function() {
+    if (!Config.token) {
+      vm.login();
+    }
+  }
+}
