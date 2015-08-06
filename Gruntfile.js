@@ -22,7 +22,8 @@ module.exports = function (grunt) {
       // configurable paths
       app: 'app',
       // TODO add all js directories here for livereload, etc
-      scripts: 'states',
+      scripts: 'scripts',
+      states: 'states',
       styles: 'styles',
       images: 'images',
       test: 'test',
@@ -69,8 +70,8 @@ module.exports = function (grunt) {
         tasks: ['newer:copy:app']
       },
       js: {
-        files: ['<%= yeoman.app %>/<%= yeoman.scripts %>/**/*.js', '<%= yeoman.app %>/common/**/*.js', '<%= yeoman.app %>/scripts/**/*.js'],
-        tasks: ['newer:copy:app', 'newer:jshint:all']
+        files: ['<%= yeoman.app %>/<%= yeoman.scripts %>/**/*.js', '<%= yeoman.app %>/common/**/*.js', '<%= yeoman.app %>/<%= yeoman.states %>/**/*.js'],
+        tasks: ['newer:copy:app', 'newer:jshint:all', 'newer:jscs']
       },
       compass: {
         files: ['<%= yeoman.app %>/<%= yeoman.styles %>/**/*.{scss,sass}'],
@@ -103,7 +104,7 @@ module.exports = function (grunt) {
       }
     },
 
-    // Make sure code styles are up to par and there are no obvious mistakes
+    // Make sure there are no obvious mistakes
     jshint: {
       options: {
         jshintrc: '.jshintrc',
@@ -111,13 +112,27 @@ module.exports = function (grunt) {
       },
       all: [
         'Gruntfile.js',
-        '<%= yeoman.app %>/<%= yeoman.scripts %>/**/*.js'
+        '<%= yeoman.app %>/<%= yeoman.scripts %>/**/*.js',
+        '<%= yeoman.app %>/<%= yeoman.states %>/**/*.js'
       ],
       test: {
         options: {
           jshintrc: 'test/.jshintrc'
         },
         src: ['test/unit/**/*.js']
+      }
+    },
+
+    // Make sure code styles are up to par
+    jscs: {
+      src: [
+        'Gruntfile.js',
+        '<%= yeoman.app %>/<%= yeoman.scripts %>/**/*.js',
+        '<%= yeoman.app %>/<%= yeoman.states %>/**/*.js'
+      ],
+      options: {
+        config: '.jscsrc',
+        force: true
       }
     },
 
@@ -558,6 +573,7 @@ module.exports = function (grunt) {
   grunt.registerTask('default', [
     'wiredep',
     'newer:jshint',
+    'newer:jscs',
     'karma:continuous',
     'compress'
   ]);
