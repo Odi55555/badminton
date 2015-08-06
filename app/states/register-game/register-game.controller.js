@@ -2,9 +2,9 @@ angular.module('starter.registerGame', [])
 
 .controller('RegisterGame', RegisterGame);
 
-RegisterGame.$inject = ['gameService', 'lodash', 'Config'];
+RegisterGame.$inject = ['gameService', 'lodash', 'Config', 'localStorageService'];
 
-function RegisterGame(gameService, lodash, Config) {
+function RegisterGame(gameService, lodash, Config, localStorageService) {
 
   'use strict';
 
@@ -20,20 +20,22 @@ function RegisterGame(gameService, lodash, Config) {
 
   vm.gameDates = [];
 
-  // TODO load defaults from settings
+  vm.preferredTimeslot = localStorageService.get('preferredTimeslot') || 'Egal';
+  vm.duration = localStorageService.get('duration') || 'Egal';
+  vm.backToCompany = localStorageService.get('backToCompany') || false;
+  vm.dinner = localStorageService.get('dinner') || false;
 
   // remove dates that are before today
-  gameService.getGames().then(function(gameDates){
-    lodash.each(gameDates, function(gameDate){
-      if(!moment(gameDate).isBefore(new Date(), 'day')){
+  gameService.getGames().then(function(gameDates) {
+    lodash.each(gameDates, function(gameDate) {
+      if (!moment(gameDate).isBefore(new Date(), 'day')) {
         vm.gameDates.push(gameDate);
       }
     });
-
-  vm.selectedGameDate = moment(vm.gameDates[0]).format('DD.MM.YYYY');
+    vm.selectedGameDate = moment(vm.gameDates[0]).format('DD.MM.YYYY');
   });
 
-  vm.save = function(){
+  vm.save = function() {
     gameService.register({
       date: vm.selectedGameDate,
       user: Config.username,
@@ -44,7 +46,7 @@ function RegisterGame(gameService, lodash, Config) {
       backToCompany: vm.backToCompany,
       passengers: vm.passengers,
       dinner: vm.dinner
-    }).then(function(){
+    }).then(function() {
       //do something in successful registration
     });
   };
