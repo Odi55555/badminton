@@ -4,10 +4,10 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.app', 'config'])
+angular.module('starter', ['ionic', 'angularMoment', 'ngLodash', 'starter.app', 'config', 'starter.registerGame'])
 
-.run(function($ionicPlatform) {
-  
+.run(function($ionicPlatform, amMoment) {
+
   'use strict';
 
   $ionicPlatform.ready(function() {
@@ -22,11 +22,13 @@ angular.module('starter', ['ionic', 'starter.app', 'config'])
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    amMoment.changeLocale('de');
   });
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
-  
+
   'use strict';
 
   $stateProvider
@@ -43,7 +45,8 @@ angular.module('starter', ['ionic', 'starter.app', 'config'])
     url: '/register-game',
     views: {
       'menuContent': {
-        templateUrl: 'states/register-game/register-game.html'
+        templateUrl: 'states/register-game/register-game.html',
+        controller: 'RegisterGame as regGame'
       }
     }
   })
@@ -77,4 +80,10 @@ angular.module('starter', ['ionic', 'starter.app', 'config'])
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/register-game');
-});
+})
+
+// TODO save this in local storage for next session
+.constant('Config', {
+  token: undefined,
+  username: undefined
+}); 

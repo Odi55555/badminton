@@ -1,12 +1,12 @@
 <ion-view view-title="Spielanmeldung">
 <ion-content>
 <div class="list card">
-	<ion-toggle ng-model="app.playGame" toggle-class="toggle-calm">Ich spiele mit</ion-toggle>
+	<ion-toggle ng-model="regGame.playGame" toggle-class="toggle-calm">Ich spiele mit am <b>{{regGame.selectedGameDate}}</b></ion-toggle>
 	<label class="item item-input item-select">
 		<div class="input-label">
 			Spielbeginn
 		</div>
-		<select ng-disabled="!app.playGame">
+		<select ng-model="regGame.preferredTimeslot" ng-disabled="!regGame.playGame">
 			<option selected>Egal</option>
 			<option>Früh</option>
 			<option>Spät</option>
@@ -16,27 +16,30 @@
 		<div class="input-label">
 			Spieldauer
 		</div>
-		<select ng-disabled="!app.playGame">
+		<select ng-model="regGame.duration" ng-disabled="!regGame.playGame">
 			<option selected>Egal</option>
 			<option>1,0h</option>
 			<option>1,5h</option>
 			<option>2,0h</option>
 		</select>
 	</label>
-	<ion-toggle ng-model="app.backToCompany" toggle-class="toggle-calm" ng-disabled="!app.playGame">Ich fahre zurück zur Firma</ion-toggle>
+	<ion-toggle ng-model="regGame.backToCompany" toggle-class="toggle-calm" ng-disabled="!regGame.playGame">Ich fahre zurück zur Firma</ion-toggle>
 	<div class="item item-range" ng-hide="true">
 		Anzahl freier Plätze
-		<span class="item-right">{{app.passengers}}</span>
+		<span class="item-right">{{regGame.passengers}}</span>
 		<div class="item range range-positive">
-			<input type="range" name="passengers" min="0" max="8" value="0" ng-model="app.passengers">
+			<input type="range" name="passengers" min="0" max="8" value="0" ng-model="regGame.passengers">
 		</div>
 	</div>
-	<ion-toggle ng-model="app.dinner" toggle-class="toggle-calm" ng-disabled="!app.playGame">Essen</ion-toggle>
+	<ion-toggle ng-model="regGame.dinner" toggle-class="toggle-calm" ng-disabled="!regGame.playGame">Essen</ion-toggle>
+</div>
+<div>
+	<button class="button button-block button-positive" ng-click="regGame.save()">Speichern</button>
 </div>
 </ion-content>
-<div class="bar bar-footer">
+<!-- <div class="bar bar-footer">
 	<button class="button button-clear button-positive icon-left ion-arrow-left-b">&nbsp;Zurück</button>
-	<div class="title text-positive">30.07.2015</div>
+	<div class="title text-positive">{{regGame.selectedGameDate}}</div>
 	<button class="button button-clear button-positive icon-right ion-arrow-right-b">Vor&nbsp;</button>
-</div>
+</div> -->
 </ion-view>

@@ -22,7 +22,7 @@ function App($scope, $ionicModal, $timeout, userService, Config) {
     scope: $scope
   }).then(function(modal) {
     vm.modal = modal;
-    vm.handleAuthentication()
+    vm.handleAuthentication();
   });
 
   // Form data for the login modal
@@ -43,9 +43,11 @@ function App($scope, $ionicModal, $timeout, userService, Config) {
   $scope.doLogin = function() {
     console.log('Doing login', $scope.loginData);
 
-    userService.login($scope.loginData.username, $scope.loginData.password).then(function() {
+    userService.login($scope.loginData.username, $scope.loginData.password).then(function(response) {
       // TODO promise gets resolved even on failed XHR request!
       // TODO handle authentication error
+      Config.token = response.token;
+      Config.username = response.username;
       $scope.closeLogin();
 
     }, function(error) {
@@ -56,7 +58,7 @@ function App($scope, $ionicModal, $timeout, userService, Config) {
   // handle authentication
   vm.handleAuthentication = function() {
     if (!Config.token) {
-      vm.login();
+      // vm.login();
     }
-  }
+  };
 }

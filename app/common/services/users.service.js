@@ -17,7 +17,7 @@ function userService($http, logger, Config) {
 
     function loginComplete(response) {
       Config.token = response.data.token;
-      return response.data.results;
+      return response.data;
     }
 
     function loginFailed(error) {
@@ -27,12 +27,12 @@ function userService($http, logger, Config) {
   }
 
   function getUsers() {
-    return $http.get('/users/getUsers')
+    return $http.get('/users')
         .then(getUsersComplete)
         .catch(getUsersFailed);
 
     function getUsersComplete(response) {
-      return response.data.results;
+      return response.data;
     }
 
     function getUsersFailed(error) {
