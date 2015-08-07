@@ -2,9 +2,9 @@ angular.module('starter.gameOverview', [])
 
 .controller('GameOverview', GameOverview);
 
-GameOverview.$inject = ['gameService'];
+GameOverview.$inject = ['gameService', '$scope'];
 
-function GameOverview(gameService) {
+function GameOverview(gameService, $scope) {
 
   'use strict';
 
@@ -19,7 +19,9 @@ function GameOverview(gameService) {
   // TODO get current game date
   vm.currentGameDate = '07.08.2015';
 
-  gameService.getPlayers('07.08.2015').then(function(players){
-    vm.players = players;
+  $scope.$on('$ionicView.enter', function(e) {
+    gameService.getPlayers('07.08.2015').then(function(players){
+      vm.players = players;
+    });
   });
 }

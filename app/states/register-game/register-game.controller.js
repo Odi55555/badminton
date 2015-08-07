@@ -2,9 +2,9 @@ angular.module('starter.registerGame', [])
 
 .controller('RegisterGame', RegisterGame);
 
-RegisterGame.$inject = ['gameService', 'lodash', 'Config', 'localStorageService'];
+RegisterGame.$inject = ['gameService', 'lodash', 'Config', 'localStorageService', '$scope'];
 
-function RegisterGame(gameService, lodash, Config, localStorageService) {
+function RegisterGame(gameService, lodash, Config, localStorageService, $scope) {
 
   'use strict';
 
@@ -16,24 +16,27 @@ function RegisterGame(gameService, lodash, Config, localStorageService) {
   //});
 
   var vm = this;
-  // vm.selectedGameDate = '';
 
-  vm.gameDates = [];
+  $scope.$on('$ionicView.enter', function(e) {
+    vm.gameDates = [];
 
-  vm.preferredTimeslot = localStorageService.get('preferredTimeslot') || 'Egal';
-  vm.duration = localStorageService.get('duration') || 'Egal';
-  vm.backToCompany = localStorageService.get('backToCompany') || false;
-  vm.dinner = localStorageService.get('dinner') || false;
+    vm.preferredTimeslot = localStorageService.get('preferredTimeslot') || 'Egal';
+    vm.duration = localStorageService.get('duration') || 'Egal';
+    vm.backToCompany = localStorageService.get('backToCompany') || false;
+    vm.dinner = localStorageService.get('dinner') || false;
 
-  // remove dates that are before today
-  gameService.getGames().then(function(gameDates) {
-    lodash.each(gameDates, function(gameDate) {
-      if (!moment(gameDate).isBefore(new Date(), 'day')) {
-        vm.gameDates.push(gameDate);
-      }
+    // remove dates that are before today
+    gameService.getGames().then(function(gameDates) {
+      lodash.each(gameDates, function(gameDate) {
+        if (!moment(gameDate).isBefore(new Date(), 'day')) {
+          vm.gameDates.push(gameDate);
+        }
+      });
+      vm.selectedGameDate = moment(vm.gameDates[0]).format('DD.MM.YYYY');
     });
-    vm.selectedGameDate = moment(vm.gameDates[0]).format('DD.MM.YYYY');
   });
+
+
 
   vm.save = function() {
     gameService.register({

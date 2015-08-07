@@ -2,9 +2,9 @@ angular.module('starter.administration', [])
 
 .controller('Administration', Administration);
 
-Administration.$inject = ['gameService', 'lodash', '$ionicModal'];
+Administration.$inject = ['gameService', 'lodash', '$ionicModal', '$scope'];
 
-function Administration(gameService, lodash, $ionicModal) {
+function Administration(gameService, lodash, $ionicModal, $scope) {
 
   'use strict';
 
@@ -16,14 +16,17 @@ function Administration(gameService, lodash, $ionicModal) {
   //});
 
   var vm = this;
-  vm.gameDates = [];
 
-  // remove dates that are before today
-  gameService.getGames().then(function(gameDates) {
-    lodash.each(gameDates, function(gameDate) {
-      if (!moment(gameDate).isBefore(new Date(), 'day')) {
-        vm.gameDates.push(gameDate);
-      }
+  $scope.$on('$ionicView.enter', function(e) {
+    vm.gameDates = [];
+
+    // remove dates that are before today
+    gameService.getGames().then(function(gameDates) {
+      lodash.each(gameDates, function(gameDate) {
+        if (!moment(gameDate).isBefore(new Date(), 'day')) {
+          vm.gameDates.push(gameDate);
+        }
+      });
     });
   });
 
