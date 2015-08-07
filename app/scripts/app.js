@@ -4,7 +4,8 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'angularMoment', 'ngLodash', 'starter.app', 'config', 'starter.registerGame', 'starter.settings', 'LocalStorageModule'])
+angular.module('starter', ['ionic', 'angularMoment', 'ngLodash', 'starter.app', 'config', 'starter.registerGame',
+  'starter.settings', 'LocalStorageModule', 'ionic-datepicker', 'starter.administration'])
 
 .run(function($ionicPlatform, amMoment) {
 
@@ -74,7 +75,8 @@ angular.module('starter', ['ionic', 'angularMoment', 'ngLodash', 'starter.app', 
     url: '/administration',
     views: {
       'menuContent': {
-        templateUrl: 'states/administration/administration.html'
+        templateUrl: 'states/administration/administration.html',
+        controller: 'Administration as admin'
       }
     }
   });

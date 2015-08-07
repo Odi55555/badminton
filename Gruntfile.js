@@ -74,7 +74,7 @@ module.exports = function (grunt) {
         tasks: ['newer:copy:app', 'newer:jshint:all', 'newer:jscs']
       },
       compass: {
-        files: ['<%= yeoman.app %>/<%= yeoman.styles %>/**/*.{scss,sass}'],
+        files: ['<%= yeoman.app %>/<%= yeoman.styles %>/**/*.{scss,sass}', '<%= yeoman.app %>/<%= yeoman.states %>/**/*.{scss,sass}'],
         tasks: ['compass:server', 'autoprefixer', 'newer:copy:tmp']
       },
       gruntfile: {
@@ -172,7 +172,7 @@ module.exports = function (grunt) {
         ignorePath:  /\.\.\//
       },
       sass: {
-        src: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
+        src: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}', '<%= yeoman.app %>/<%= yeoman.states %>/**/*.{scss,sass}'],
         ignorePath: /(\.\.\/){1,2}bower_components\//
       }
     },

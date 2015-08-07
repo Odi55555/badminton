@@ -7,7 +7,9 @@ gameService.$inject = ['$http', '$log'];
 function gameService($http, logger) {
   return {
     register: register,
-    getGames: getGames
+    getGames: getGames,
+    setGames: setGames,
+    startGame: startGame
   };
 
   function register(game) {
@@ -36,6 +38,34 @@ function gameService($http, logger) {
     function getGamesFailed(error) {
       logger.error('XHR Failed for getGames.' + error.data);
       return [new Date()]
+    }
+  }
+
+  function setGames(gameDates) {
+    return $http.post('/games', gameDates)
+        .then(setGamesComplete)
+        .catch(setGamesFailed);
+
+    function setGamesComplete(response) {
+      return response.data;
+    }
+
+    function setGamesFailed(error) {
+      logger.error('XHR Failed for setGames.' + error.data);
+    }
+  }
+
+  function startGame(gameDate) {
+    return $http.post('/games/start', gameDate)
+        .then(startGameComplete)
+        .catch(startGameFailed);
+
+    function startGameComplete(response) {
+      return response.data;
+    }
+
+    function startGameFailed(error) {
+      logger.error('XHR Failed for startGame.' + error.data);
     }
   }
 }
