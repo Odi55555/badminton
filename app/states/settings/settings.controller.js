@@ -27,5 +27,5 @@ function Settings(localStorageService) {
 
   vm.onModelChange = function(key, value){
   	localStorageService.set(key, value);
-  }
-};
+  };
+}

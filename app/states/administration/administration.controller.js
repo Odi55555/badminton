@@ -49,5 +49,5 @@ function Administration(gameService, lodash, $ionicModal) {
   vm.startGame = function(gameDate){
     // $ionicModal.show();
     gameService.startGame(gameDate);
-  }
-};
+  };
+}
