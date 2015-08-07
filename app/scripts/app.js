@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'angularMoment', 'ngLodash', 'starter.app', 'config', 'starter.registerGame',
-  'starter.settings', 'LocalStorageModule', 'ionic-datepicker', 'starter.administration'])
+  'starter.settings', 'LocalStorageModule', 'ionic-datepicker', 'starter.administration', 'starter.gameOverview'])
 
 .run(function($ionicPlatform, amMoment) {
 
@@ -56,7 +56,8 @@ angular.module('starter', ['ionic', 'angularMoment', 'ngLodash', 'starter.app', 
     url: '/game-overview',
     views: {
       'menuContent': {
-        templateUrl: 'states/game-overview/game-overview.html'
+        templateUrl: 'states/game-overview/game-overview.html',
+        controller: 'GameOverview as gameOverview'
       }
     }
   })

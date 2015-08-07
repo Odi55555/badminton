@@ -9,7 +9,8 @@ function gameService($http, logger) {
     register: register,
     getGames: getGames,
     setGames: setGames,
-    startGame: startGame
+    startGame: startGame,
+    getPlayers: getPlayers
   };
 
   function register(game) {
@@ -66,6 +67,23 @@ function gameService($http, logger) {
 
     function startGameFailed(error) {
       logger.error('XHR Failed for startGame.' + error.data);
+    }
+  }
+
+  function getPlayers(gameDate) {
+    return $http.post('/games/players', gameDate)
+        .then(getPlayersComplete)
+        .catch(getPlayersFailed);
+
+    function getPlayersComplete(response) {
+      return response.data;
+    }
+
+    function getPlayersFailed(error) {
+      logger.error('XHR Failed for getPlayers.' + error.data);
+      // TODO remove mocked data
+      return [{name: 'Patrick', backToCompany: true, preferredTimeslot: 'Früh', duration: '1,5h', passengers: 2, dinner: false},
+      {name: 'Christian', backToCompany: false, preferredTimeslot: 'Spät', duration: '1,5h', dinner: false}]
     }
   }
 }

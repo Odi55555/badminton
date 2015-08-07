@@ -1,5 +1,10 @@
 <ion-view view-title="Übersicht Anmeldungen">
   <ion-content>
-    <h1>Übersicht Anmeldungen</h1>
+	<ion-list>
+		<div class="item item-divider">{{gameOverview.players.length}} Mitspieler am {{gameOverview.currentGameDate}}:</div>
+	  <ion-item ng-repeat="player in gameOverview.players">
+	    {{player.name}} || {{player.duration}} || {{player.preferredTimeslot}}
+	  </ion-item>
+	</ion-list>
   </ion-content>
 </ion-view>
