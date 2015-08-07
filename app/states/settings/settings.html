@@ -16,7 +16,7 @@
 		</div>
 		<select ng-model="settings.duration" ng-change="settings.onModelChange('duration', settings.duration)" ng-options="item for item in settings.durationOptions"></select>
 	</label>
-	<ion-toggle ng-model="settings.backToCompany" toggle-class="toggle-calm" ng-change="settings.onModelChange('preferredTimeslot', settings.preferredTimeslot)">Ich fahre zurück zur Firma</ion-toggle>
+	<ion-toggle ng-model="settings.backToCompany" toggle-class="toggle-calm" ng-change="settings.onModelChange('backToCompany', settings.backToCompany)">Ich fahre zurück zur Firma</ion-toggle>
 	<div class="item item-range" ng-hide="true">
 		Anzahl freier Plätze
 		<span class="item-right">{{settings.passengers}}</span>
