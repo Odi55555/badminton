@@ -2,13 +2,15 @@ angular
     .module('starter.app')
     .factory('gameService', gameService);
 
-gameService.$inject = ['$http', '$log'];
+gameService.$inject = ['$http', '$log', 'Config'];
 
-function gameService($http, logger) {
+function gameService($http, logger, config) {
+  var baseUrl = config.apiUrl + '/Games';
+
   return {
     register: register,
     getGames: getGames,
-    setGames: setGames,
+    createGame: createGame,
     startGame: startGame,
     getPlayers: getPlayers
   };
@@ -28,7 +30,7 @@ function gameService($http, logger) {
   }
 
   function getGames() {
-    return $http.get('/games')
+    return $http.get(baseUrl)
         .then(getGamesComplete)
         .catch(getGamesFailed);
 
@@ -42,17 +44,17 @@ function gameService($http, logger) {
     }
   }
 
-  function setGames(gameDates) {
-    return $http.post('/games', gameDates)
-        .then(setGamesComplete)
-        .catch(setGamesFailed);
+  function createGame(game) {
+    return $http.post(baseUrl, game)
+        .then(createGameComplete)
+        .catch(createGameFailed);
 
-    function setGamesComplete(response) {
+    function createGameComplete(response) {
       return response.data;
     }
 
-    function setGamesFailed(error) {
-      logger.error('XHR Failed for setGames.' + error.data);
+    function createGameFailed(error) {
+      logger.error('XHR Failed for createGame.' + error.data);
     }
   }
 

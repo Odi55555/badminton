@@ -21,12 +21,8 @@ function Administration(gameService, lodash, $ionicModal, $scope) {
     vm.gameDates = [];
 
     // remove dates that are before today
-    gameService.getGames().then(function(gameDates) {
-      lodash.each(gameDates, function(gameDate) {
-        if (!moment(gameDate).isBefore(new Date(), 'day')) {
-          vm.gameDates.push(gameDate);
-        }
-      });
+    gameService.getGames().then(function(games) {
+      vm.gameDates = games;
     });
   });
 
@@ -37,14 +33,18 @@ function Administration(gameService, lodash, $ionicModal, $scope) {
     if (typeof(val) === 'undefined') {      
       console.log('Date not selected');
     } else {
-    lodash.each(vm.gameDates, function(gameDate) {
-      if (moment(gameDate).isSame(val, 'day')) {
+    lodash.each(vm.gameDates, function(game) {
+      if (moment(game.date).isSame(val, 'day')) {
         dateAlreadyExists = true;
       }
     });
     if (!dateAlreadyExists){
-      vm.gameDates.push(val);
-      gameService.setGames(vm.gameDates);
+      var newGame = {
+        date: val,
+        state: 'planned'       
+      }
+      vm.gameDates.push(newGame);
+      gameService.createGame(newGame);
     }
     }
   };
@@ -52,5 +52,17 @@ function Administration(gameService, lodash, $ionicModal, $scope) {
   vm.startGame = function(gameDate){
     // $ionicModal.show();
     gameService.startGame(gameDate);
+  };
+
+  vm.futureGames = function(games) {
+    var futureGames = [];
+    
+    lodash.each(games, function(game) {
+      if (!moment(game.date).isBefore(new Date(), 'day')) {
+        futureGames.push(game);
+      }
+    });
+    
+    return futureGames;
   };
 }

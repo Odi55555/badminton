@@ -89,5 +89,11 @@ angular.module('starter', ['ionic', 'angularMoment', 'ngLodash', 'starter.app', 
 // TODO save this in local storage for next session
 .constant('Config', {
   token: undefined,
-  username: undefined
-}); 
+  username: undefined,
+  apiUrl: 'http://0.0.0.0:3000/api'
+})
+
+.config(function($httpProvider) {
+  $httpProvider.defaults.useXDomain = true;
+  delete $httpProvider.defaults.headers.common['X-Requested-With'];
+});
