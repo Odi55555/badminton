@@ -11,7 +11,7 @@ function gameService($http, logger, config) {
     register: register,
     getGames: getGames,
     createGame: createGame,
-    startGame: startGame,
+    changeGameState: changeGameState,
     getPlayers: getPlayers
   };
 
@@ -58,17 +58,17 @@ function gameService($http, logger, config) {
     }
   }
 
-  function startGame(gameDate) {
-    return $http.post('/games/start', gameDate)
-        .then(startGameComplete)
-        .catch(startGameFailed);
+  function changeGameState(gameDate) {
+    return $http.put(baseUrl + '/' + gameDate.id, gameDate)
+        .then(changeGameStateComplete)
+        .catch(changeGameStateFailed);
 
-    function startGameComplete(response) {
+    function changeGameStateComplete(response) {
       return response.data;
     }
 
-    function startGameFailed(error) {
-      logger.error('XHR Failed for startGame.' + error.data);
+    function changeGameStateFailed(error) {
+      logger.error('XHR Failed for changeGameState.' + error.data);
     }
   }
 

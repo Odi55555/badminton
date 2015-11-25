@@ -49,9 +49,20 @@ function Administration(gameService, lodash, $ionicModal, $scope) {
     }
   };
 
-  vm.startGame = function(gameDate){
-    // $ionicModal.show();
-    gameService.startGame(gameDate);
+  vm.changeGameState = function(gameDate){
+    if (gameDate.state === 'running') {
+      gameDate.state = 'stopped';
+    }
+    if (gameDate.state === 'planned') {
+      gameDate.state = 'running';
+    }
+    gameService.changeGameState(gameDate).then(function (response) {
+      angular.forEach(vm.gameDates, function (gameDate)  {
+        if (gameDate.id === response.id) {
+          gameDate = response;
+        }
+      })
+    });
   };
 
   vm.futureGames = function(games) {
