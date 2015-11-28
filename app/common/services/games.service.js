@@ -4,8 +4,8 @@ angular
 
 gameService.$inject = ['$http', '$log', 'Config'];
 
-function gameService($http, logger, config) {
-  var baseUrl = config.apiUrl + '/Games';
+function gameService($http, logger, Config) {
+  var baseUrl = Config.apiUrl + '/Games';
 
   return {
     register: register,

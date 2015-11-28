@@ -46,9 +46,11 @@ function App($scope, $ionicModal, $timeout, userService, Config) {
     userService.login($scope.loginData.username, $scope.loginData.password).then(function(response) {
       // TODO promise gets resolved even on failed XHR request!
       // TODO handle authentication error
-      Config.token = response.token;
-      Config.username = response.username;
-      $scope.closeLogin();
+      if (response.status === 200) {
+        Config.token = response.data.id;
+        Config.username = $scope.loginData.username;
+        $scope.closeLogin();
+      }
 
     }, function(error) {
       // TODO show error

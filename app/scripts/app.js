@@ -93,7 +93,17 @@ angular.module('starter', ['ionic', 'angularMoment', 'ngLodash', 'starter.app', 
   apiUrl: 'http://0.0.0.0:3000/api'
 })
 
-.config(function($httpProvider) {
+.config(function($httpProvider, Config) {
   $httpProvider.defaults.useXDomain = true;
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
+  $httpProvider.interceptors.push(function() {
+    return {
+     'request': function(config) {
+        if (Config.token) {
+          config.headers['Authorization'] = Config.token;
+        }
+        return config;
+      }
+    };
+  });
 });
