@@ -94,13 +94,16 @@ angular.module('starter', ['ionic', 'angularMoment', 'ngLodash', 'starter.app', 
 })
 
 .config(function($httpProvider, Config) {
+ 
+  'use strict';
+ 
   $httpProvider.defaults.useXDomain = true;
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
   $httpProvider.interceptors.push(function() {
     return {
      'request': function(config) {
         if (Config.token) {
-          config.headers['Authorization'] = Config.token;
+          config.headers.Authorization = Config.token;
         }
         return config;
       }

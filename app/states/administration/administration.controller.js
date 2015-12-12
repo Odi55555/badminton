@@ -17,7 +17,7 @@ function Administration(gameService, lodash, $ionicModal, $scope) {
 
   var vm = this;
 
-  $scope.$on('$ionicView.enter', function(e) {
+  $scope.$on('$ionicView.enter', function() {
     vm.gameDates = [];
 
     // remove dates that are before today
@@ -42,7 +42,7 @@ function Administration(gameService, lodash, $ionicModal, $scope) {
       var newGame = {
         date: val,
         state: 'planned'       
-      }
+      };
       vm.gameDates.push(newGame);
       gameService.createGame(newGame);
     }
@@ -61,7 +61,7 @@ function Administration(gameService, lodash, $ionicModal, $scope) {
         if (gameDate.id === response.id) {
           gameDate = response;
         }
-      })
+      });
     });
   };
 

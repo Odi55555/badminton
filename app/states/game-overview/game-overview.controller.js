@@ -19,7 +19,7 @@ function GameOverview(gameService, $scope) {
   // TODO get current game date
   vm.currentGameDate = '07.08.2015';
 
-  $scope.$on('$ionicView.enter', function(e) {
+  $scope.$on('$ionicView.enter', function() {
     gameService.getPlayers('07.08.2015').then(function(players){
       vm.players = players;
     });

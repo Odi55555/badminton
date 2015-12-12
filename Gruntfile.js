@@ -70,7 +70,11 @@ module.exports = function (grunt) {
         tasks: ['newer:copy:app']
       },
       js: {
-        files: ['<%= yeoman.app %>/<%= yeoman.scripts %>/**/*.js', '<%= yeoman.app %>/common/**/*.js', '<%= yeoman.app %>/<%= yeoman.states %>/**/*.js'],
+        files: [
+          '<%= yeoman.app %>/<%= yeoman.scripts %>/**/*.js', 
+          '<%= yeoman.app %>/common/**/*.js', 
+          '<%= yeoman.app %>/<%= yeoman.states %>/**/*.js'
+        ],
         tasks: ['newer:copy:app', 'newer:jshint:all', 'newer:jscs']
       },
       compass: {
@@ -177,7 +181,6 @@ module.exports = function (grunt) {
       }
     },
 
-    
     // Compiles Sass to CSS and generates necessary files if requested
     compass: {
       options: {
@@ -207,7 +210,6 @@ module.exports = function (grunt) {
       }
     },
     
-
     // Reads HTML for usemin blocks to enable smart builds that automatically
     // concat, minify and revision files. Creates configurations in memory so
     // additional tasks can operate on them
@@ -426,7 +428,14 @@ module.exports = function (grunt) {
           dest: '.temp/concat/<%= yeoman.scripts %>'
         }]
       }
-    }
+    },
+
+    githooks: {
+      all: {
+        // Will run the jshint and test:unit tasks at every commit 
+        'pre-commit': 'jshint jscs',
+      }
+  }
 
   });
 
@@ -540,6 +549,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('init', [
     'clean',
+    'githooks',
     'ngconstant:development',
     'wiredep',
     'concurrent:server',
@@ -547,7 +557,6 @@ module.exports = function (grunt) {
     'newer:copy:app',
     'newer:copy:tmp'
   ]);
-
 
   grunt.registerTask('compress', [
     'clean',
@@ -572,6 +581,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', [
     'wiredep',
+    'githooks',
     'newer:jshint',
     'newer:jscs',
     'karma:continuous',

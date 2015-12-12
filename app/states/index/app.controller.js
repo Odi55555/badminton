@@ -22,7 +22,6 @@ function App($scope, $ionicModal, $timeout, userService, Config) {
     scope: $scope
   }).then(function(modal) {
     vm.modal = modal;
-    vm.handleAuthentication();
   });
 
   // Form data for the login modal
@@ -52,15 +51,8 @@ function App($scope, $ionicModal, $timeout, userService, Config) {
         $scope.closeLogin();
       }
 
-    }, function(error) {
+    }, function() {
       // TODO show error
     });
-  };
-
-  // handle authentication
-  vm.handleAuthentication = function() {
-    if (!Config.token) {
-      // vm.login();
-    }
   };
 }

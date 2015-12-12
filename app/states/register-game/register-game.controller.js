@@ -17,7 +17,7 @@ function RegisterGame(gameService, lodash, Config, localStorageService, $scope) 
 
   var vm = this;
 
-  $scope.$on('$ionicView.enter', function(e) {
+  $scope.$on('$ionicView.enter', function() {
     vm.gameDates = [];
 
     vm.preferredTimeslot = localStorageService.get('preferredTimeslot') || 'Egal';
