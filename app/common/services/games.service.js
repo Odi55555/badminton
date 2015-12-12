@@ -39,8 +39,7 @@ function gameService($http, logger, Config) {
     }
 
     function getGamesFailed(error) {
-      logger.error('XHR Failed for getGames.' + error.data);
-      return [new Date()]
+      logger.error('XHR Failed for getGames.' + error.data.error.message);
     }
   }
 

@@ -99,14 +99,21 @@ angular.module('starter', ['ionic', 'angularMoment', 'ngLodash', 'starter.app', 
  
   $httpProvider.defaults.useXDomain = true;
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
-  $httpProvider.interceptors.push(function() {
+  $httpProvider.interceptors.push(function($q, $rootScope) {
     return {
      'request': function(config) {
         if (Config.token) {
           config.headers.Authorization = Config.token;
         }
         return config;
+      },
+    'responseError': function(rejection) {
+      if (rejection.status === 401) {
+        // TODO create a login-state and show login with a route change, not with this ugly way
+        $rootScope.$emit('showLogin');
       }
+      return $q.reject(rejection);
+    }
     };
   });
 });

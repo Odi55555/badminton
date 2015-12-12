@@ -13,7 +13,7 @@ function userService($http, logger, Config) {
   };
 
   function login(username, password) {
-    return $http.post(baseUrl + '/login', {email: username, password: password})
+    return $http.post(baseUrl + '/login', {username: username, password: password})
         .then(loginComplete)
         .catch(loginFailed);
 
