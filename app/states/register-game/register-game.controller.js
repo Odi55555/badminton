@@ -26,10 +26,10 @@ function RegisterGame(gameService, lodash, Config, localStorageService, $scope) 
     vm.dinner = localStorageService.get('dinner') || false;
 
     // remove dates that are before today
-    gameService.getGames().then(function(gameDates) {
-      lodash.each(gameDates, function(gameDate) {
-        if (!moment(gameDate).isBefore(new Date(), 'day')) {
-          vm.gameDates.push(gameDate);
+    gameService.getGames().then(function(games) {
+      lodash.each(games, function(game) {
+        if (!moment(game.date).isBefore(new Date(), 'day')) {
+          vm.gameDates.push(game.date);
         }
       });
       vm.selectedGameDate = moment(vm.gameDates[0]).format('DD.MM.YYYY');
@@ -50,7 +50,7 @@ function RegisterGame(gameService, lodash, Config, localStorageService, $scope) 
       passengers: vm.passengers,
       dinner: vm.dinner
     }).then(function() {
-      //do something in successful registration
+      //do something on successful registration
     });
   };
 }
