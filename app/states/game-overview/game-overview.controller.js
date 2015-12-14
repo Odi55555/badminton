@@ -20,17 +20,16 @@ function GameOverview(gameService, $scope, lodash) {
   vm.currentGameDate = '';
 
   $scope.$on('$ionicView.enter', function() {
-  gameService.getGames().then(function(games) {
-    lodash.each(games, function(game) {
-      if (!moment(game.date).isBefore(new Date(), 'day')) {
-        vm.games.push(game);
-      }
-    });
-    vm.currentGameDate = moment(vm.games[0].date).format('DD.MM.YYYY');
-  });
-
-    gameService.getPlayers(vm.games[0].id).then(function(players){
-      vm.players = players;
+    gameService.getGames().then(function(games) {
+      lodash.each(games, function(game) {
+        if (!moment(game.date).isBefore(new Date(), 'day')) {
+          vm.games.push(game);
+        }
+      });
+      vm.currentGameDate = moment(vm.games[0].date).format('DD.MM.YYYY');
+      gameService.getPlayers(vm.games[0].id).then(function(players) {
+        vm.players = players;
+      });
     });
   });
 }
