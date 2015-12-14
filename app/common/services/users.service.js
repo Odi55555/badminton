@@ -1,3 +1,4 @@
+// TODO rename this to Players service
 angular
     .module('starter.app')
     .factory('userService', userService);
@@ -5,7 +6,7 @@ angular
 userService.$inject = ['$http', '$log', 'Config'];
 
 function userService($http, logger, Config) {
-  var baseUrl = Config.apiUrl + '/Users';
+  var baseUrl = Config.apiUrl + '/Players';
 
   return {
     login: login,

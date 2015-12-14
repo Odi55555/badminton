@@ -71,8 +71,8 @@ function gameService($http, logger, Config) {
     }
   }
 
-  function getPlayers(gameDate) {
-    return $http.post('/games/players', gameDate)
+  function getPlayers(gameId) {
+    return $http.get(baseUrl + '/' + gameId + '/players')
         .then(getPlayersComplete)
         .catch(getPlayersFailed);
 

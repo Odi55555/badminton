@@ -2,9 +2,9 @@ angular.module('starter.gameOverview', [])
 
 .controller('GameOverview', GameOverview);
 
-GameOverview.$inject = ['gameService', '$scope'];
+GameOverview.$inject = ['gameService', '$scope', 'lodash'];
 
-function GameOverview(gameService, $scope) {
+function GameOverview(gameService, $scope, lodash) {
 
   'use strict';
 
@@ -16,11 +16,20 @@ function GameOverview(gameService, $scope) {
   //});
 
   var vm = this;
-  // TODO get current game date
-  vm.currentGameDate = '07.08.2015';
+  vm.games = [];
+  vm.currentGameDate = '';
 
   $scope.$on('$ionicView.enter', function() {
-    gameService.getPlayers('07.08.2015').then(function(players){
+  gameService.getGames().then(function(games) {
+    lodash.each(games, function(game) {
+      if (!moment(game.date).isBefore(new Date(), 'day')) {
+        vm.games.push(game);
+      }
+    });
+    vm.currentGameDate = moment(vm.games[0].date).format('DD.MM.YYYY');
+  });
+
+    gameService.getPlayers(vm.games[0].id).then(function(players){
       vm.players = players;
     });
   });
