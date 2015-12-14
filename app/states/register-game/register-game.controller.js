@@ -18,7 +18,7 @@ function RegisterGame(gameService, lodash, Config, localStorageService, $scope) 
   var vm = this;
 
   $scope.$on('$ionicView.enter', function() {
-    vm.gameDates = [];
+    vm.games = [];
 
     vm.preferredTimeslot = localStorageService.get('preferredTimeslot') || 'Egal';
     vm.duration = localStorageService.get('duration') || 'Egal';
@@ -29,10 +29,10 @@ function RegisterGame(gameService, lodash, Config, localStorageService, $scope) 
     gameService.getGames().then(function(games) {
       lodash.each(games, function(game) {
         if (!moment(game.date).isBefore(new Date(), 'day')) {
-          vm.gameDates.push(game.date);
+          vm.games.push(game);
         }
       });
-      vm.selectedGameDate = moment(vm.gameDates[0]).format('DD.MM.YYYY');
+      vm.selectedGameDate = moment(vm.games[0].date).format('DD.MM.YYYY');
     });
   });
 
@@ -40,15 +40,15 @@ function RegisterGame(gameService, lodash, Config, localStorageService, $scope) 
 
   vm.save = function() {
     gameService.register({
-      date: vm.selectedGameDate,
-      user: Config.username,
-      token: Config.token,
+      gameId: vm.games[0].id,
+      userId: Config.userId,
+      // user: Config.username,
       playGame: vm.playGame,
-      preferredTimeslot: vm.preferredTimeslot,
-      duration: vm.duration,
-      backToCompany: vm.backToCompany,
-      passengers: vm.passengers,
-      dinner: vm.dinner
+      // preferredTimeslot: vm.preferredTimeslot,
+      // duration: vm.duration,
+      // backToCompany: vm.backToCompany,
+      // passengers: vm.passengers,
+      // dinner: vm.dinner
     }).then(function() {
       //do something on successful registration
     });

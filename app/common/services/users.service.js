@@ -19,6 +19,8 @@ function userService($http, logger, Config) {
 
     function loginComplete(response) {
       Config.token = response.data.id;
+      Config.username = username;
+      Config.userId = response.data.userId;
       return response;
     }
 

@@ -18,11 +18,11 @@ function Administration(gameService, lodash, $ionicModal, $scope) {
   var vm = this;
 
   $scope.$on('$ionicView.enter', function() {
-    vm.gameDates = [];
+    vm.games = [];
 
     // remove dates that are before today
     gameService.getGames().then(function(games) {
-      vm.gameDates = games;
+      vm.games = games;
     });
   });
 
@@ -33,7 +33,7 @@ function Administration(gameService, lodash, $ionicModal, $scope) {
     if (typeof(val) === 'undefined') {      
       console.log('Date not selected');
     } else {
-    lodash.each(vm.gameDates, function(game) {
+    lodash.each(vm.games, function(game) {
       if (moment(game.date).isSame(val, 'day')) {
         dateAlreadyExists = true;
       }
@@ -43,7 +43,7 @@ function Administration(gameService, lodash, $ionicModal, $scope) {
         date: val,
         state: 'planned'       
       };
-      vm.gameDates.push(newGame);
+      vm.games.push(newGame);
       gameService.createGame(newGame);
     }
     }
@@ -57,7 +57,7 @@ function Administration(gameService, lodash, $ionicModal, $scope) {
       gameDate.state = 'running';
     }
     gameService.changeGameState(gameDate).then(function (response) {
-      angular.forEach(vm.gameDates, function (gameDate)  {
+      angular.forEach(vm.games, function (gameDate)  {
         if (gameDate.id === response.id) {
           gameDate = response;
         }

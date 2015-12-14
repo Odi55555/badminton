@@ -90,6 +90,7 @@ angular.module('starter', ['ionic', 'angularMoment', 'ngLodash', 'starter.app', 
 .constant('Config', {
   token: undefined,
   username: undefined,
+  userId: undefined,
   apiUrl: 'http://0.0.0.0:3000/api'
 })
 
@@ -111,6 +112,7 @@ angular.module('starter', ['ionic', 'angularMoment', 'ngLodash', 'starter.app', 
       if (rejection.status === 401) {
         Config.token = undefined;
         Config.username = undefined;
+        Config.userId = undefined;
         // TODO create a login-state and show login with a route change, not with this ugly way
         $rootScope.$emit('showLogin');
       }

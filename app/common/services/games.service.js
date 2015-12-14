@@ -15,8 +15,8 @@ function gameService($http, logger, Config) {
     getPlayers: getPlayers
   };
 
-  function register(game) {
-    return $http.post('/games/register', game)
+  function register(gameData) {
+    return $http.post(baseUrl + '/register', gameData)
         .then(registerComplete)
         .catch(registerFailed);
 
