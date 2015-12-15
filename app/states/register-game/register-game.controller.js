@@ -33,10 +33,18 @@ function RegisterGame(gameService, registrationService, lodash, Config, localSto
         }
       });
       vm.selectedGameDate = moment(vm.games[0].date).format('DD.MM.YYYY');
+      registrationService.getRegistration({gameId: vm.games[0].id, userId: Config.userId}).then(function(reg){
+        if (reg) {
+          vm.regExists = true;
+          vm.playGame = true;
+          vm.preferredTimeslot = reg.preferredTimeslot;
+          vm.duration = reg.duration;
+          vm.backToCompany = reg.backToCompany;
+          vm.dinner = reg.dinner;
+        }
+      });
     });
   });
-
-
 
   vm.save = function() {
     registrationService.register({
@@ -48,8 +56,10 @@ function RegisterGame(gameService, registrationService, lodash, Config, localSto
       backToCompany: vm.backToCompany,
       passengers: vm.passengers,
       dinner: vm.dinner
-    }).then(function() {
-      //do something on successful registration
+    }).then(function(repsonse) {
+      // TODO do something on successful registration
+      // TODO load content again after 401
+      vm.regExists = !!vm.playGame;
     });
   };
 }
