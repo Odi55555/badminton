@@ -2,9 +2,9 @@ angular.module('starter.registerGame', [])
 
 .controller('RegisterGame', RegisterGame);
 
-RegisterGame.$inject = ['gameService', 'lodash', 'Config', 'localStorageService', '$scope'];
+RegisterGame.$inject = ['gameService', 'registrationService', 'lodash', 'Config', 'localStorageService', '$scope'];
 
-function RegisterGame(gameService, lodash, Config, localStorageService, $scope) {
+function RegisterGame(gameService, registrationService, lodash, Config, localStorageService, $scope) {
 
   'use strict';
 
@@ -39,7 +39,7 @@ function RegisterGame(gameService, lodash, Config, localStorageService, $scope) 
 
 
   vm.save = function() {
-    gameService.register({
+    registrationService.register({
       gameId: vm.games[0].id,
       userId: Config.userId,
       playGame: vm.playGame,

@@ -8,26 +8,11 @@ function gameService($http, logger, Config) {
   var baseUrl = Config.apiUrl + '/Games';
 
   return {
-    register: register,
     getGames: getGames,
     createGame: createGame,
     changeGameState: changeGameState,
     getPlayers: getPlayers
   };
-
-  function register(gameData) {
-    return $http.post(baseUrl + '/register', gameData)
-        .then(registerComplete)
-        .catch(registerFailed);
-
-    function registerComplete(response) {
-      return response.data;
-    }
-
-    function registerFailed(error) {
-      logger.error('XHR Failed for register.' + error.data);
-    }
-  }
 
   function getGames() {
     return $http.get(baseUrl)
