@@ -2,9 +2,9 @@ angular.module('starter.gameOverview', [])
 
 .controller('GameOverview', GameOverview);
 
-GameOverview.$inject = ['gameService', '$scope', 'lodash'];
+GameOverview.$inject = ['gameService', 'registrationService', '$scope', 'lodash'];
 
-function GameOverview(gameService, $scope, lodash) {
+function GameOverview(gameService, registrationService, $scope, lodash) {
 
   'use strict';
 
@@ -27,8 +27,8 @@ function GameOverview(gameService, $scope, lodash) {
         }
       });
       vm.currentGameDate = moment(vm.games[0].date).format('DD.MM.YYYY');
-      gameService.getPlayers(vm.games[0].id).then(function(players) {
-        vm.players = players;
+      registrationService.getRegistrations(vm.games[0].id).then(function(registrations) {
+        vm.registrations = registrations;
       });
     });
   });
