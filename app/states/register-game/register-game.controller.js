@@ -42,13 +42,12 @@ function RegisterGame(gameService, lodash, Config, localStorageService, $scope) 
     gameService.register({
       gameId: vm.games[0].id,
       userId: Config.userId,
-      // user: Config.username,
       playGame: vm.playGame,
-      // preferredTimeslot: vm.preferredTimeslot,
-      // duration: vm.duration,
-      // backToCompany: vm.backToCompany,
-      // passengers: vm.passengers,
-      // dinner: vm.dinner
+      preferredTimeslot: vm.preferredTimeslot,
+      duration: vm.duration,
+      backToCompany: vm.backToCompany,
+      passengers: vm.passengers,
+      dinner: vm.dinner
     }).then(function() {
       //do something on successful registration
     });

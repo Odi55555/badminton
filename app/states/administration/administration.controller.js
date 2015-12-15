@@ -27,6 +27,7 @@ function Administration(gameService, lodash, $ionicModal, $scope) {
   });
 
   // TODO Fix disabling existing dates in datepicker
+  // TODO fix some timezone issues in DB
 
   vm.addNewGameDatePickerCallback = function(val) {
     var dateAlreadyExists = false;

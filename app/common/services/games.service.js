@@ -72,7 +72,7 @@ function gameService($http, logger, Config) {
   }
 
   function getPlayers(gameId) {
-    return $http.get(baseUrl + '/' + gameId + '/players')
+    return $http.get(baseUrl + '/' + gameId + '/registrations')
         .then(getPlayersComplete)
         .catch(getPlayersFailed);
 
