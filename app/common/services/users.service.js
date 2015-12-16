@@ -3,9 +3,9 @@ angular
     .module('starter.app')
     .factory('userService', userService);
 
-userService.$inject = ['$http', '$log', 'Config'];
+userService.$inject = ['$http', '$log', 'Config', 'authService'];
 
-function userService($http, logger, Config) {
+function userService($http, logger, Config, authService) {
   var baseUrl = Config.apiUrl + '/Players';
 
   return {
@@ -22,6 +22,7 @@ function userService($http, logger, Config) {
       Config.token = response.data.id;
       Config.username = username;
       Config.userId = response.data.userId;
+      authService.loginConfirmed();
       return response;
     }
 

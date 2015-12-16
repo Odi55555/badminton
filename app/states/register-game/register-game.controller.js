@@ -58,7 +58,6 @@ function RegisterGame(gameService, registrationService, lodash, Config, localSto
       dinner: vm.dinner
     }).then(function(repsonse) {
       // TODO do something on successful registration
-      // TODO load content again after 401
       vm.regExists = !!vm.playGame;
     });
   };

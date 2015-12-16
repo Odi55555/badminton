@@ -5,7 +5,8 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'angularMoment', 'ngLodash', 'starter.app', 'config', 'starter.registerGame',
-  'starter.settings', 'LocalStorageModule', 'ionic-datepicker', 'starter.administration', 'starter.gameOverview'])
+  'starter.settings', 'LocalStorageModule', 'ionic-datepicker', 'starter.administration', 'starter.gameOverview',
+  'http-auth-interceptor'])
 
 .run(function($ionicPlatform, amMoment) {
 
