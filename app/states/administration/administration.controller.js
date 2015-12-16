@@ -41,7 +41,7 @@ function Administration(gameService, lodash, $ionicModal, $scope) {
     });
     if (!dateAlreadyExists){
       var newGame = {
-        date: val,
+        date: moment(val).format('YYYY-MM-DD'),
         state: 'planned'       
       };
       vm.games.push(newGame);
