@@ -15,7 +15,7 @@ function gameService($http, logger, Config) {
   };
 
   function getGames() {
-    return $http.get(baseUrl)
+    return $http.get(baseUrl + '?filter[order]=date')
         .then(getGamesComplete)
         .catch(getGamesFailed);
 
