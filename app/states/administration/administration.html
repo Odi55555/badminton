@@ -3,7 +3,7 @@
 <div class="list item-text-wrap">
 	<div class="item item-divider">Bereits angelegte Spieltage:</div>
 	<ul>
-		<li ng-repeat="game in admin.futureGames(admin.games)" class="item item-button-right">
+		<li ng-repeat="game in admin.futureGames(admin.games) | orderBy:'+date'" class="item item-button-right">
 			{{game.date | amDateFormat:'DD.MM.YYYY'}}
 			<button class="button button-small" ng-click="admin.changeGameState(game)" ng-class="{'button-positive': game.state === 'running', 'button-balanced': game.state === 'stopped'}">
 				<span ng-if="game.state === 'planned'">Spiel starten</span>
