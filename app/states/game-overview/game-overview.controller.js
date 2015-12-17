@@ -20,6 +20,11 @@ function GameOverview(gameService, registrationService, $scope, lodash) {
   vm.currentGameDate = '';
 
   $scope.$on('$ionicView.enter', function() {
+    $scope.reloadContent();
+  });
+
+  // TODO try to put this on vm
+  $scope.reloadContent = function() {
     gameService.getGames().then(function(games) {
       lodash.each(games, function(game) {
         if (!moment(game.date).isBefore(new Date(), 'day')) {
@@ -29,7 +34,10 @@ function GameOverview(gameService, registrationService, $scope, lodash) {
       vm.currentGameDate = moment(vm.games[0].date).format('DD.MM.YYYY');
       registrationService.getRegistrations(vm.games[0].id).then(function(registrations) {
         vm.registrations = registrations;
-      });
-    });
-  });
+      }).finally(function() {
+       // Stop the ion-refresher from spinning
+       $scope.$broadcast('scroll.refreshComplete');
+     });
+    });    
+  };
 }
