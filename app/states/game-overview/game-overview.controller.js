@@ -16,8 +16,6 @@ function GameOverview(gameService, registrationService, $scope, lodash) {
   //});
 
   var vm = this;
-  vm.games = [];
-  vm.currentGameDate = '';
 
   $scope.$on('$ionicView.enter', function() {
     $scope.reloadContent();
@@ -25,19 +23,16 @@ function GameOverview(gameService, registrationService, $scope, lodash) {
 
   // TODO try to put this on vm
   $scope.reloadContent = function() {
-    gameService.getGames().then(function(games) {
+    vm.games = [];
+    gameService.getGamesWithRegistrations().then(function(games) {
       lodash.each(games, function(game) {
         if (!moment(game.date).isBefore(new Date(), 'day')) {
           vm.games.push(game);
         }
       });
-      vm.currentGameDate = moment(vm.games[0].date).format('DD.MM.YYYY');
-      registrationService.getRegistrations(vm.games[0].id).then(function(registrations) {
-        vm.registrations = registrations;
-      }).finally(function() {
+    }).finally(function() {
        // Stop the ion-refresher from spinning
        $scope.$broadcast('scroll.refreshComplete');
      });
-    });    
   };
 }

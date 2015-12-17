@@ -9,7 +9,6 @@ function registrationService($http, logger, Config) {
 
   return {
     register: register,
-    getRegistrations: getRegistrations,
     getRegistration: getRegistration
   };
 
@@ -24,20 +23,6 @@ function registrationService($http, logger, Config) {
 
     function registerFailed(error) {
       logger.error('XHR Failed for register.' + error.data);
-    }
-  }
-
-  function getRegistrations(gameId) {
-    return $http.post(baseUrl + '/getRegistrations', {gameId: gameId})
-        .then(getRegistrationsComplete)
-        .catch(getRegistrationsFailed);
-
-    function getRegistrationsComplete(response) {
-      return response.data.registrations;
-    }
-
-    function getRegistrationsFailed(error) {
-      logger.error('XHR Failed for getRegistrations.' + error.data.error.message);
     }
   }
 

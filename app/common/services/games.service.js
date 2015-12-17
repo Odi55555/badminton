@@ -9,6 +9,7 @@ function gameService($http, logger, Config) {
 
   return {
     getGames: getGames,
+    getGamesWithRegistrations: getGamesWithRegistrations,
     createGame: createGame,
     changeGameState: changeGameState,
     getPlayers: getPlayers
@@ -21,6 +22,20 @@ function gameService($http, logger, Config) {
 
     function getGamesComplete(response) {
       return response.data;
+    }
+
+    function getGamesFailed(error) {
+      logger.error('XHR Failed for getGames.' + error.data.error.message);
+    }
+  }
+
+  function getGamesWithRegistrations() {
+    return $http.get(baseUrl + '/gamesWithRegistrations')
+        .then(getGamesComplete)
+        .catch(getGamesFailed);
+
+    function getGamesComplete(response) {
+      return response.data.games;
     }
 
     function getGamesFailed(error) {
