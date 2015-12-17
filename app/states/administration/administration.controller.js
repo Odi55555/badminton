@@ -2,9 +2,9 @@ angular.module('starter.administration', [])
 
 .controller('Administration', Administration);
 
-Administration.$inject = ['gameService', 'lodash', '$ionicModal', '$scope'];
+Administration.$inject = ['gameService', 'lodash', '$ionicModal', '$scope', '$ionicPopup'];
 
-function Administration(gameService, lodash, $ionicModal, $scope) {
+function Administration(gameService, lodash, $ionicModal, $scope, $ionicPopup) {
 
   'use strict';
 
@@ -27,7 +27,8 @@ function Administration(gameService, lodash, $ionicModal, $scope) {
   });
 
   // TODO Fix disabling existing dates in datepicker
-  // TODO fix some timezone issues in DB
+  // TODO forbid on backend to at date twice
+  // TODO forbid to change registrations when a game already starts
 
   vm.addNewGameDatePickerCallback = function(val) {
     var dateAlreadyExists = false;
@@ -50,17 +51,29 @@ function Administration(gameService, lodash, $ionicModal, $scope) {
     }
   };
 
-  vm.changeGameState = function(gameDate){
-    if (gameDate.state === 'running') {
-      gameDate.state = 'stopped';
+   vm.showConfirm = function(game) {
+     var confirmPopup = $ionicPopup.confirm({
+       title: 'Spielzustand ändern?',
+       template: 'Wenn du das Spiel startest, kann kein Spieler sich mehr an- oder abmelden.<br>Wenn du das Spiel beendest, wird es archiviert.'
+     });
+     confirmPopup.then(function(res) {
+       if(res) {
+         vm.changeGameState(game);
+       }
+     });
+   };
+
+  vm.changeGameState = function(game){
+    if (game.state === 'running') {
+      game.state = 'stopped';
     }
-    if (gameDate.state === 'planned') {
-      gameDate.state = 'running';
+    if (game.state === 'planned') {
+      game.state = 'running';
     }
-    gameService.changeGameState(gameDate).then(function (response) {
-      angular.forEach(vm.games, function (gameDate)  {
-        if (gameDate.id === response.id) {
-          gameDate = response;
+    gameService.changeGameState(game).then(function (response) {
+      angular.forEach(vm.games, function (game)  {
+        if (game.id === response.id) {
+          game = response;
         }
       });
     });

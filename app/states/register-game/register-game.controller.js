@@ -15,6 +15,7 @@ function RegisterGame(gameService, registrationService, lodash, Config, localSto
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
+
   var vm = this;
 
   $scope.$on('$ionicView.enter', function() {
@@ -47,6 +48,7 @@ function RegisterGame(gameService, registrationService, lodash, Config, localSto
   });
 
   vm.save = function() {
+    // TODO show this at least a second
     $ionicLoading.show({
       template: 'Daten werden übermittelt...'
     });
