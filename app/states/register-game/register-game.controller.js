@@ -2,9 +2,9 @@ angular.module('starter.registerGame', [])
 
 .controller('RegisterGame', RegisterGame);
 
-RegisterGame.$inject = ['gameService', 'registrationService', 'lodash', 'Config', 'localStorageService', '$scope'];
+RegisterGame.$inject = ['gameService', 'registrationService', 'lodash', 'Config', 'localStorageService', '$scope', '$ionicLoading'];
 
-function RegisterGame(gameService, registrationService, lodash, Config, localStorageService, $scope) {
+function RegisterGame(gameService, registrationService, lodash, Config, localStorageService, $scope, $ionicLoading) {
 
   'use strict';
 
@@ -47,6 +47,9 @@ function RegisterGame(gameService, registrationService, lodash, Config, localSto
   });
 
   vm.save = function() {
+    $ionicLoading.show({
+      template: 'Daten werden übermittelt...'
+    });
     registrationService.register({
       gameId: vm.games[0].id,
       userId: Config.userId,
@@ -56,9 +59,9 @@ function RegisterGame(gameService, registrationService, lodash, Config, localSto
       backToCompany: vm.backToCompany,
       passengers: vm.passengers,
       dinner: vm.dinner
-    }).then(function(repsonse) {
-      // TODO do something on successful registration
+    }).then(function() {
       vm.regExists = !!vm.playGame;
+      $ionicLoading.hide();
     });
   };
 }

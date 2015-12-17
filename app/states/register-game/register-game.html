@@ -34,7 +34,7 @@
 	<ion-toggle ng-model="regGame.dinner" toggle-class="toggle-calm" ng-disabled="!regGame.playGame">Essen</ion-toggle>
 </div>
 <div>
-	<button class="button button-full button-positive" ng-click="regGame.save()">
+	<button class="button button-full button-positive" ng-click="regGame.save()" ng-disabled="!regGame.playGame && !regGame.regExists">
 	<spam ng-show="!regGame.regExists">Anmelden</spam>
 	<spam ng-show="regGame.playGame && regGame.regExists">Anmeldung ändern</spam>
 	<spam ng-show="!regGame.playGame && regGame.regExists">Abmelden</spam>
