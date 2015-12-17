@@ -14,8 +14,13 @@
 		</li>
 	</ul>
 </div>
+<div class="card date-already-exists" ng-show="admin.dateAlreadyExists">
+	<div class="item item-text-wrap">
+		Das Spiel ist bereits angelegt!
+	</div>
+</div>
 <ionic-datepicker idate="admin.currentDate" disablepreviousdates="true" callback="admin.addNewGameDatePickerCallback" disableddates="admin.games" title="'Spieltag auswählen'" mondayfirst="true">
-<button class="button button-full button-positive ion-plus"> Neuen Spieltag hinzufügen</button>
+	<button class="button button-full button-positive ion-plus"> Neuen Spieltag hinzufügen</button>
 </ionic-datepicker>
 </ion-content>
 </ion-view>

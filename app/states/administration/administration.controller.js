@@ -16,6 +16,7 @@ function Administration(gameService, lodash, $ionicModal, $scope, $ionicPopup) {
   //});
 
   var vm = this;
+  vm.dateAlreadyExists = false;
 
   $scope.$on('$ionicView.enter', function() {
     vm.games = [];
@@ -26,29 +27,35 @@ function Administration(gameService, lodash, $ionicModal, $scope, $ionicPopup) {
     });
   });
 
-  // TODO Fix disabling existing dates in datepicker
-  // TODO forbid on backend to at date twice
+
   // TODO forbid to change registrations when a game already starts
 
-  vm.addNewGameDatePickerCallback = function(val) {
-    var dateAlreadyExists = false;
-    if (typeof(val) === 'undefined') {      
+  vm.addNewGameDatePickerCallback = function(selectedDate) {
+    if (typeof(selectedDate) === 'undefined') {      
       console.log('Date not selected');
-    } else {
+      return;
+    }
+    // check if game already exists
     lodash.each(vm.games, function(game) {
-      if (moment(game.date).isSame(val, 'day')) {
-        dateAlreadyExists = true;
+      if (moment(game.date).isSame(selectedDate, 'day')) {
+        vm.dateAlreadyExists = true;
       }
     });
-    if (!dateAlreadyExists){
-      var newGame = {
-        date: moment(val).format('YYYY-MM-DD'),
-        state: 'planned'       
-      };
+    if (vm.dateAlreadyExists) {
+      return;
+    }
+    vm.dateAlreadyExists = false;
+    var newGame = {
+      date: moment(selectedDate).format('YYYY-MM-DD'),
+      state: 'planned'       
+    };
+    gameService.createGame(newGame).then(function(response){
+      if (response.status === 422) {
+        vm.dateAlreadyExists = true;
+        return;
+      }
       vm.games.push(newGame);
-      gameService.createGame(newGame);
-    }
-    }
+    });
   };
 
    vm.showConfirm = function(game) {

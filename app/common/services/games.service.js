@@ -54,6 +54,7 @@ function gameService($http, logger, Config) {
 
     function createGameFailed(error) {
       logger.error('XHR Failed for createGame.' + error.data);
+      return error;
     }
   }
 
