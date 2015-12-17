@@ -29,23 +29,27 @@ function RegisterGame(gameService, registrationService, lodash, Config, localSto
     // remove dates that are before today
     gameService.getGames().then(function(games) {
       lodash.each(games, function(game) {
-        if (!moment(game.date).isBefore(new Date(), 'day')) {
+        if (game.state === 'planned' && !moment(game.date).isBefore(new Date(), 'day')) {
           vm.games.push(game);
         }
       });
-      vm.selectedGameDate = moment(vm.games[0].date).format('DD.MM.YYYY');
-      registrationService.getRegistration({gameId: vm.games[0].id, userId: Config.userId}).then(function(reg){
-        if (reg) {
-          vm.regExists = true;
-          vm.playGame = true;
-          vm.preferredTimeslot = reg.preferredTimeslot;
-          vm.duration = reg.duration;
-          vm.backToCompany = reg.backToCompany;
-          vm.dinner = reg.dinner;
-        }
-      });
+      if (vm.games.length > 0) {
+        vm.selectedGameDate = moment(vm.games[0].date).format('DD.MM.YYYY');
+        registrationService.getRegistration({gameId: vm.games[0].id, userId: Config.userId}).then(function(reg){
+          if (reg) {
+            vm.regExists = true;
+            vm.playGame = true;
+            vm.preferredTimeslot = reg.preferredTimeslot;
+            vm.duration = reg.duration;
+            vm.backToCompany = reg.backToCompany;
+            vm.dinner = reg.dinner;
+          }
+        });
+      }
     });
   });
+
+  
 
   vm.save = function() {
     // TODO show this at least a second

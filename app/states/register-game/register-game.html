@@ -1,6 +1,6 @@
-<ion-view view-title="Spielanmeldung">
+<ion-view view-title="Spielanmeldung" class="register-game-state">
 <ion-content>
-<div class="list card">
+<div class="list card" ng-show="regGame.selectedGameDate">
 	<ion-toggle ng-model="regGame.playGame" toggle-class="toggle-calm">Ich spiele mit am <b>{{regGame.selectedGameDate}}</b></ion-toggle>
 	<label class="item item-input item-select">
 		<div class="input-label">
@@ -33,12 +33,17 @@
 	</div>
 	<ion-toggle ng-model="regGame.dinner" toggle-class="toggle-calm" ng-disabled="!regGame.playGame">Essen</ion-toggle>
 </div>
-<div>
+<div ng-show="regGame.selectedGameDate">
 	<button class="button button-full button-positive" ng-click="regGame.save()" ng-disabled="!regGame.playGame && !regGame.regExists">
 	<spam ng-show="!regGame.regExists">Anmelden</spam>
 	<spam ng-show="regGame.playGame && regGame.regExists">Anmeldung ändern</spam>
 	<spam ng-show="!regGame.playGame && regGame.regExists">Abmelden</spam>
 	</button>
+</div>
+<div class="card no-games" ng-show="!regGame.selectedGameDate">
+	<div class="item item-text-wrap">
+		Momentan sind leider keine Spiele angelegt zu denen du dich anmelden kannst :(
+	</div>
 </div>
 </ion-content>
 <!-- <div class="bar bar-footer">
