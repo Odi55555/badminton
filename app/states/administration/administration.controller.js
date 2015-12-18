@@ -61,7 +61,7 @@ function Administration(gameService, lodash, $ionicModal, $scope, $ionicPopup) {
    vm.showConfirm = function(game) {
      var confirmPopup = $ionicPopup.confirm({
        title: 'Spielzustand ändern?',
-       template: 'Wenn du das Spiel startest, kann kein Spieler sich mehr an- oder abmelden.<br>Wenn du das Spiel beendest, wird es archiviert.'
+       template: 'Wenn du das Spiel startest, kann sich kein Spieler mehr an- oder abmelden.<br>Wenn du das Spiel beendest, wird es archiviert.'
      });
      confirmPopup.then(function(res) {
        if(res) {
