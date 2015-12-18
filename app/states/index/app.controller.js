@@ -2,9 +2,9 @@ angular.module('starter.app', [])
 
 .controller('App', App);
 
-App.$inject = ['$rootScope', '$ionicModal', '$timeout', 'userService', 'Config'];
+App.$inject = ['$rootScope', '$ionicModal', '$timeout', 'playerService', 'Config'];
 
-function App($rootScope, $ionicModal, $timeout, userService, Config) {
+function App($rootScope, $ionicModal, $timeout, playerService, Config) {
 
   'use strict';
 
@@ -46,7 +46,7 @@ function App($rootScope, $ionicModal, $timeout, userService, Config) {
   $rootScope.doLogin = function() {
     console.log('Doing login', $rootScope.loginData);
 
-    userService.login($rootScope.loginData.username, $rootScope.loginData.password).then(function(response) {
+    playerService.login($rootScope.loginData.username, $rootScope.loginData.password).then(function(response) {
       // TODO promise gets resolved even on failed XHR request!
       // TODO handle authentication error
       if (response.status === 200) {

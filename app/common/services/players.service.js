@@ -1,16 +1,14 @@
-// TODO rename this to Players service
 angular
     .module('starter.app')
-    .factory('userService', userService);
+    .factory('playerService', playerService);
 
-userService.$inject = ['$http', '$log', 'Config', 'authService'];
+playerService.$inject = ['$http', '$log', 'Config', 'authService', 'localStorageService'];
 
-function userService($http, logger, Config, authService) {
+function playerService($http, logger, Config, authService, localStorageService) {
   var baseUrl = Config.apiUrl + '/Players';
 
   return {
-    login: login,
-    getUsers: getUsers
+    login: login
   };
 
   function login(username, password) {
@@ -22,6 +20,11 @@ function userService($http, logger, Config, authService) {
       Config.token = response.data.id;
       Config.username = username;
       Config.userId = response.data.userId;
+    
+      localStorageService.set('token', Config.token);
+      localStorageService.set('username', Config.username);
+      localStorageService.set('userId', Config.userId);
+
       authService.loginConfirmed();
       return response;
     }
@@ -30,20 +33,6 @@ function userService($http, logger, Config, authService) {
       Config.token = undefined;
       logger.error('XHR Failed for login.' + error.data);
       return error;
-    }
-  }
-
-  function getUsers() {
-    return $http.get('/users')
-        .then(getUsersComplete)
-        .catch(getUsersFailed);
-
-    function getUsersComplete(response) {
-      return response.data;
-    }
-
-    function getUsersFailed(error) {
-      logger.error('XHR Failed for getUsers.' + error.data);
     }
   }
 }
