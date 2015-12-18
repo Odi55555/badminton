@@ -11,8 +11,7 @@ function gameService($http, logger, Config) {
     getGames: getGames,
     getGamesWithRegistrations: getGamesWithRegistrations,
     createGame: createGame,
-    changeGameState: changeGameState,
-    getPlayers: getPlayers
+    changeGameState: changeGameState
   };
 
   function getGames() {
@@ -69,23 +68,6 @@ function gameService($http, logger, Config) {
 
     function changeGameStateFailed(error) {
       logger.error('XHR Failed for changeGameState.' + error.data);
-    }
-  }
-
-  function getPlayers(gameId) {
-    return $http.get(baseUrl + '/' + gameId + '/registrations')
-        .then(getPlayersComplete)
-        .catch(getPlayersFailed);
-
-    function getPlayersComplete(response) {
-      return response.data;
-    }
-
-    function getPlayersFailed(error) {
-      logger.error('XHR Failed for getPlayers.' + error.data);
-      // TODO remove mocked data
-      return [{name: 'Patrick', backToCompany: true, preferredTimeslot: 'Früh', duration: '1,5h', passengers: 2, dinner: false},
-      {name: 'Christian', backToCompany: false, preferredTimeslot: 'Spät', duration: '1,5h', dinner: false}]
     }
   }
 }
