@@ -27,9 +27,6 @@ function Administration(gameService, lodash, $ionicModal, $scope, $ionicPopup) {
     });
   });
 
-
-  // TODO forbid to change registrations when a game already starts
-
   vm.addNewGameDatePickerCallback = function(selectedDate) {
     if (typeof(selectedDate) === 'undefined') {      
       console.log('Date not selected');

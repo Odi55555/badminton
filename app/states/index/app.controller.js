@@ -47,8 +47,6 @@ function App($rootScope, $ionicModal, $timeout, playerService, Config) {
     console.log('Doing login', $rootScope.loginData);
 
     playerService.login($rootScope.loginData.username, $rootScope.loginData.password).then(function(response) {
-      // TODO promise gets resolved even on failed XHR request!
-      // TODO handle authentication error
       if (response.status === 200) {
         Config.token = response.data.id;
         Config.username = $rootScope.loginData.username;
