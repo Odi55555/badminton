@@ -549,7 +549,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('init', [
     'clean',
-    'githooks',
     'ngconstant:development',
     'wiredep',
     'concurrent:server',
@@ -581,7 +580,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', [
     'wiredep',
-    'githooks',
     'newer:jshint',
     'newer:jscs',
     'karma:continuous',
