@@ -8,7 +8,7 @@ angular.module('starter', ['ionic', 'angularMoment', 'ngLodash', 'starter.app', 
   'starter.settings', 'LocalStorageModule', 'ionic-datepicker', 'starter.administration', 'starter.gameOverview',
   'http-auth-interceptor'])
 
-.run(function($ionicPlatform, amMoment) {
+.run(function($ionicPlatform, amMoment, Config, localStorageService) {
 
   'use strict';
 
@@ -26,6 +26,10 @@ angular.module('starter', ['ionic', 'angularMoment', 'ngLodash', 'starter.app', 
     }
 
     amMoment.changeLocale('de');
+
+    Config.token = localStorageService.get('token') || undefined;
+    Config.username = localStorageService.get('username') || undefined;
+    Config.userId = localStorageService.get('userId') || undefined;
   });
 })
 
@@ -87,7 +91,6 @@ angular.module('starter', ['ionic', 'angularMoment', 'ngLodash', 'starter.app', 
   $urlRouterProvider.otherwise('/register-game');
 })
 
-// TODO save this in local storage for next session
 .constant('Config', {
   token: undefined,
   username: undefined,
@@ -96,7 +99,6 @@ angular.module('starter', ['ionic', 'angularMoment', 'ngLodash', 'starter.app', 
 })
 
 .config(function($httpProvider, Config) {
- 
   'use strict';
  
   $httpProvider.defaults.useXDomain = true;
