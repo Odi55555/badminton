@@ -2,10 +2,10 @@ angular
     .module('starter.app')
     .factory('playerService', playerService);
 
-playerService.$inject = ['$http', '$log', 'Config', 'authService', 'localStorageService'];
+playerService.$inject = ['$http', '$log', 'Config', 'authService', 'localStorageService', 'ENV'];
 
-function playerService($http, logger, Config, authService, localStorageService) {
-  var baseUrl = Config.apiUrl + '/Players';
+function playerService($http, logger, Config, authService, localStorageService, ENV) {
+  var baseUrl = ENV.apiEndpoint + '/Players';
 
   return {
     login: login
@@ -20,7 +20,7 @@ function playerService($http, logger, Config, authService, localStorageService) 
       Config.token = response.data.id;
       Config.username = username;
       Config.userId = response.data.userId;
-    
+
       localStorageService.set('token', Config.token);
       localStorageService.set('username', Config.username);
       localStorageService.set('userId', Config.userId);
