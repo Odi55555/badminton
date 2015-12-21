@@ -45,7 +45,7 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'development',
-            apiEndpoint: 'http://dev.yoursite.com:10000/'
+            apiEndpoint: 'http://localhost:3000/api'
           }
         }
       },
@@ -53,7 +53,7 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'production',
-            apiEndpoint: 'http://api.yoursite.com/'
+            apiEndpoint: '/api'
           }
         }
       }
@@ -71,8 +71,8 @@ module.exports = function (grunt) {
       },
       js: {
         files: [
-          '<%= yeoman.app %>/<%= yeoman.scripts %>/**/*.js', 
-          '<%= yeoman.app %>/common/**/*.js', 
+          '<%= yeoman.app %>/<%= yeoman.scripts %>/**/*.js',
+          '<%= yeoman.app %>/common/**/*.js',
           '<%= yeoman.app %>/<%= yeoman.states %>/**/*.js'
         ],
         tasks: ['newer:copy:app', 'newer:jshint:all', 'newer:jscs']
@@ -209,7 +209,7 @@ module.exports = function (grunt) {
         }
       }
     },
-    
+
     // Reads HTML for usemin blocks to enable smart builds that automatically
     // concat, minify and revision files. Creates configurations in memory so
     // additional tasks can operate on them
@@ -274,7 +274,7 @@ module.exports = function (grunt) {
           src: [
             '<%= yeoman.images %>/**/*.{png,jpg,jpeg,gif,webp,svg}',
             '*.html',
-            'templates/**/*.html',
+            '<%= yeoman.states %>/**/*.html',
             'fonts/*'
           ]
         }, {
@@ -282,6 +282,11 @@ module.exports = function (grunt) {
           cwd: '.temp/<%= yeoman.images %>',
           dest: '<%= yeoman.dist %>/<%= yeoman.images %>',
           src: ['generated/*']
+        }, {
+          expand: true,
+          cwd: '.temp/<%= yeoman.styles %>',
+          dest: '<%= yeoman.dist %>/<%= yeoman.styles %>',
+          src: 'main.css'
         }]
       },
       styles: {
@@ -432,7 +437,7 @@ module.exports = function (grunt) {
 
     githooks: {
       all: {
-        // Will run the jshint and test:unit tasks at every commit 
+        // Will run the jshint and test:unit tasks at every commit
         'pre-commit': 'jshint',
       }
   }
@@ -573,7 +578,7 @@ module.exports = function (grunt) {
     'htmlmin'
   ]);
 
-  grunt.registerTask('coverage', 
+  grunt.registerTask('coverage',
     ['karma:continuous',
     'connect:coverage:keepalive'
   ]);

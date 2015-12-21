@@ -2,10 +2,10 @@ angular
     .module('starter.app')
     .factory('registrationService', registrationService);
 
-registrationService.$inject = ['$http', '$log', 'Config'];
+registrationService.$inject = ['$http', '$log', 'ENV'];
 
-function registrationService($http, logger, Config) {
-  var baseUrl = Config.apiUrl + '/Registrations';
+function registrationService($http, logger, ENV) {
+  var baseUrl = ENV.apiEndpoint + '/Registrations';
 
   return {
     register: register,

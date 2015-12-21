@@ -94,13 +94,12 @@ angular.module('starter', ['ionic', 'angularMoment', 'ngLodash', 'starter.app', 
 .constant('Config', {
   token: undefined,
   username: undefined,
-  userId: undefined,
-  apiUrl: 'http://0.0.0.0:3000/api'
+  userId: undefined
 })
 
 .config(function($httpProvider, Config) {
   'use strict';
- 
+
   $httpProvider.defaults.useXDomain = true;
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
   $httpProvider.interceptors.push(function($q, $rootScope) {

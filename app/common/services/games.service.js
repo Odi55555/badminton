@@ -2,10 +2,10 @@ angular
     .module('starter.app')
     .factory('gameService', gameService);
 
-gameService.$inject = ['$http', '$log', 'Config'];
+gameService.$inject = ['$http', '$log', 'ENV'];
 
-function gameService($http, logger, Config) {
-  var baseUrl = Config.apiUrl + '/Games';
+function gameService($http, logger, ENV) {
+  var baseUrl = ENV.apiEndpoint + '/Games';
 
   return {
     getGames: getGames,
