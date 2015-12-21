@@ -1,0 +1,13 @@
+.game-overview-state {
+	.item-thumbnail-right {
+		padding-top: 16px;
+		padding-right: 46px;
+		min-height: 54px;
+
+		img:first-child {
+			top: 16px;
+			max-width: 20px;
+			max-height: 20px;
+		}
+	}
+}
