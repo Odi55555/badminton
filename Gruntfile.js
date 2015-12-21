@@ -53,7 +53,7 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'production',
-            apiEndpoint: 'https://dashboard.heroku.com/apps/desolate-mountain-4920/api'
+            apiEndpoint: '/api'
           }
         }
       }
