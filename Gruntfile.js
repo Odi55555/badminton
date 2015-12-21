@@ -274,7 +274,7 @@ module.exports = function (grunt) {
           src: [
             '<%= yeoman.images %>/**/*.{png,jpg,jpeg,gif,webp,svg}',
             '*.html',
-            'templates/**/*.html',
+            '<%= yeoman.states %>/**/*.html',
             'fonts/*'
           ]
         }, {
@@ -282,6 +282,11 @@ module.exports = function (grunt) {
           cwd: '.temp/<%= yeoman.images %>',
           dest: '<%= yeoman.dist %>/<%= yeoman.images %>',
           src: ['generated/*']
+        }, {
+          expand: true,
+          cwd: '.temp/<%= yeoman.styles %>',
+          dest: '<%= yeoman.dist %>/<%= yeoman.styles %>',
+          src: 'main.css'
         }]
       },
       styles: {
